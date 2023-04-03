@@ -1,4 +1,4 @@
-#include "Matrices.h"
+#include "managers/Matrices.h"
 
 Matrices::Matrices(int data, int clock, int store, int bitOrder) :
 data(data), clock(clock), store(store), bitOrder(bitOrder) { }
