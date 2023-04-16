@@ -16,11 +16,10 @@ Matrices matricesManager(DATA, CLOCK, STORE);
 
 Joystick joystick(VRX, VRY);
 
-int picGreen[2][8] = {{0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0}},
-    picRed[2][8] = {{0,0,0,0,0,0,0,0}, {0,0,0,0,0,0,0,0}},
+int picGreen[2][8] = {{0,0,0,0,0,0,0,1},{0,0,0,0,0,0,0,0}},
+    picRed[2][8] = {{0,0,0,0,0,0,0,1}, {0,0,0,0,0,0,0,0}},
     posx = 0, posy = 7, valx[] = {1,2,4,8,16,32,64,128,1,2,4,8,16,32,64,128};
 unsigned long total_time = 0, interval = 250, previous_time = 0;
-bool buttonAns = false;
 
 void restart()
 {
@@ -33,6 +32,7 @@ void restart()
 
    picGreen[0][7] = 1;
    picRed[0][7] = 1;
+   posx = 0; posy = 7;
 }
 
 void setup() { pinMode(DATA,OUTPUT); pinMode(CLOCK,OUTPUT); pinMode(STORE,OUTPUT); Serial.begin(9600); pinMode(BUTTON, INPUT); }
