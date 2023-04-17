@@ -23,19 +23,44 @@ unsigned long total_time = 0, interval = 250, previous_time = 0;
 
 void restart()
 {
-   for (int i = 0; i < 8; i++) {
+  for (int i = 0; i < 8; i++) {
       picGreen[0][i] = 0;
       picGreen[1][i] = 0;
       picRed[0][i] = 0;
       picRed[1][i] = 0;
-   }
+  }
 
-   picGreen[0][7] = 1;
-   picRed[0][7] = 1;
-   posx = 0; posy = 7;
+  for (int i = 0; i < 8; i++) {
+    shiftOut(DATA, CLOCK, LSBFIRST, ~picGreen[0][i]);
+    shiftOut(DATA, CLOCK, LSBFIRST, ~picRed[0][i]);
+    shiftOut(DATA, CLOCK, LSBFIRST, ~picGreen[1][i]);
+    shiftOut(DATA, CLOCK, LSBFIRST, ~picRed[1][i]);
+    shiftOut(DATA, CLOCK, LSBFIRST, 128 >> i);
+    matricesManager.retainInfo();
+  }
+
+  picGreen[0][7] = 1;
+  picRed[0][7] = 1;
+  posx = 0; posy = 7;
 }
 
-void setup() { pinMode(DATA,OUTPUT); pinMode(CLOCK,OUTPUT); pinMode(STORE,OUTPUT); Serial.begin(9600); pinMode(BUTTON, INPUT); }
+void setup() { 
+  pinMode(DATA,OUTPUT); pinMode(CLOCK,OUTPUT); pinMode(STORE,OUTPUT); Serial.begin(9600); pinMode(BUTTON, INPUT);
+  for (int i = 0; i < 8; i++) {
+    picGreen[0][i] = 0;
+    picGreen[1][i] = 0;
+    picRed[0][i] = 0;
+    picRed[1][i] = 0;
+  }
+  for (int i = 0; i < 8; i++) {
+    shiftOut(DATA, CLOCK, LSBFIRST, ~picGreen[0][i]);
+    shiftOut(DATA, CLOCK, LSBFIRST, ~picRed[0][i]);
+    shiftOut(DATA, CLOCK, LSBFIRST, ~picGreen[1][i]);
+    shiftOut(DATA, CLOCK, LSBFIRST, ~picRed[1][i]);
+    shiftOut(DATA, CLOCK, LSBFIRST, 128 >> i);
+    matricesManager.retainInfo();
+  }
+}
 
 void loop() {
   button.update();
@@ -53,7 +78,7 @@ void loop() {
     if (total_time-previous_time>interval) {
       char dir = joystick.getInput();
       previous_time = total_time;
-      //Serial.println((int)dir);
+      //Serial.println((int)dir);ss
       // Serial.print("Y = ");
       //Serial.println(posy);
       // Serial.print("X = ");

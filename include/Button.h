@@ -6,6 +6,7 @@ class Button {
 private:
     int pin;
     bool start;
+    bool buttonIsPressed;
 
 public:
     Button(int p);
