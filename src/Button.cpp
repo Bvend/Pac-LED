@@ -1,7 +1,7 @@
 #include "Button.h"
 
 
-Button::Button(int p) : pin(p), start(false), buttonIsPressed(false) { }
+Button::Button(int p) : pin(p), start(false), buttonIsPressed(false) { pinMode(p, INPUT); }
 
 Button::~Button() { }
 

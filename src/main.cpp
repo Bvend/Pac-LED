@@ -17,8 +17,9 @@ Matrices matricesManager(DATA, CLOCK, STORE);
 Joystick joystick(VRX, VRY);
 
 int picGreen[2][8] = {{0,0,0,0,0,0,0,1},{0,0,0,0,0,0,0,0}},
-    picRed[2][8] = {{0,0,0,0,0,0,0,1}, {0,0,0,0,0,0,0,0}},
-    posx = 0, posy = 7, valx[] = {1,2,4,8,16,32,64,128,1,2,4,8,16,32,64,128};
+  picRed[2][8] = {{0,0,0,0,0,0,0,1}, {0,0,0,0,0,0,0,0}},
+  valx[] = {1, 2, 4, 8, 16, 32, 64, 128, 1, 2, 4, 8, 16, 32, 64, 128};
+int posx = 0, posy = 7;
 unsigned long total_time = 0, interval = 250, previous_time = 0;
 
 void restart()
@@ -63,6 +64,9 @@ void setup() {
 }
 
 void loop() {
+  Game game;
+  game.mainLoop();
+  /*
   button.update();
   while(button.getStart()){
     for (int i = 0; i < 8; i++) {
@@ -107,6 +111,7 @@ void loop() {
     button.update();
   }
   restart();
+  */
 }
 
 /*

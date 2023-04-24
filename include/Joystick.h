@@ -10,6 +10,7 @@ private:
 
 public:
     Joystick(int vrx, int vry);
+    Joystick(){}
     ~Joystick(){}
 
     char getInput();

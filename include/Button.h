@@ -9,6 +9,7 @@ private:
     bool buttonIsPressed;
 
 public:
+    Button();
     Button(int p);
     ~Button();
 
