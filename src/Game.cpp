@@ -4,7 +4,7 @@ Game::Game() :
 matrices(DATA, CLOCK, STORE),
 button(BUTTON)
 {
-    Ent::setMatrices(&matrices);
+    listEnt.push(&player);
 }
 
 Game::~Game() {}

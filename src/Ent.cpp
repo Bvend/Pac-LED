@@ -1,5 +1,11 @@
 #include "Ent.h"
 
-Matrices* Ent::pMatrices = NULL;
+Ent::Ent() 
+{
 
-Ent::Ent() { }
+}
+
+Ent::~Ent()
+{
+
+}

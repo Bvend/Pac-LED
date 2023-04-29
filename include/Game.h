@@ -2,7 +2,8 @@
 #include "managers/Matrices.h"
 #include "Joystick.h"
 #include "Button.h"
-#include "Ent.h"
+#include "Player.h"
+#include "List.h"
 
 #define DATA 8
 #define CLOCK 10
@@ -13,7 +14,9 @@ class Game {
 private:
     Matrices matrices;
     Button button;
-
+    Player player;
+    List<Ent> listEnt;
+    
 public:
     Game();
     ~Game();

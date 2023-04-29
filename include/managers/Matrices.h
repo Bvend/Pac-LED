@@ -24,5 +24,16 @@ public:
 
     void draw();
 
-    // Matrizes tem lista de entidades. Percorre lista e pega pos de tudo para imprimir
+    // Percorre o ponteiro para a lista e pega as pos x e y para imprimir
+    // Ela recebe o ponteiro de uma lista do jogo.
+    /* EXEMPLO :
+    void draw() { 
+        for(int i = 0; i<listEnt->getAmount(); i++){  
+            Ent* ent = listEnt->getItem(i);
+            int posX = ent->getPositionX();
+            int posY = ent->getPositionY();
+            //COM AS POSIÇÕES DAS ENTIDADES IMPRIMIR...
+        }
+    }
+    */
 };
