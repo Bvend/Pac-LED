@@ -1,14 +1,12 @@
 #include "Player.h"
 
-
 Player::Player()
 {
-
+  id = PLAYER;
 }
 
 Player::~Player()
 {
-
 }
 
 void Player::move()
@@ -18,21 +16,21 @@ void Player::move()
 
       if (dir == 'w') {
         //picGreen[(int)(posx/8)][posy] = picRed[(int)(posx/8)][posy] = 0;
-        posy = (posy - 1 + 8) % 8;
+        posy = (posy - 2 + 16) % 16;
         //picGreen[(int)(posx/8)][posy] = picRed[(int)(posx/8)][posy] = valx[posx];
         //previous_time = total_time;
       } else if (dir == 's') {
         //picGreen[(int)(posx/8)][posy] = picRed[(int)(posx/8)][posy] = 0;
-        posy = (posy + 1) % 8;
+        posy = (posy + 2) % 16;
         //picGreen[(int)(posx/8)][posy] = picRed[(int)(posx/8)][posy] = valx[posx];
         //previous_time = total_time;
       } else if (dir == 'a') {
         //picGreen[(int)(posx/8)][posy] = picRed[(int)(posx/8)][posy] = 0;
-        posx = (posx + 1) % 16;
+        posx = (posx + 2) % 32;
         //picGreen[(int)(posx/8)][posy] = picRed[(int)(posx/8)][posy] = valx[posx];
       } else if (dir == 'd') {
         //picGreen[(int)(posx/8)][posy] = picRed[(int)(posx/8)][posy] = 0;
-        posx = (posx - 1 + 16) % 16;
+        posx = (posx - 2 + 32) % 32;
         //picGreen[(int)(posx/8)][posy] = picRed[(int)(posx/8)][posy] = valx[posx];
       }
 
@@ -41,5 +39,5 @@ void Player::move()
 
 void Player::update()
 {
-    move();
+  move();
 }

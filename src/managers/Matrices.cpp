@@ -1,7 +1,7 @@
 #include "managers/Matrices.h"
 
-Matrices::Matrices(int d, int c, int s, int bitOrder) :
-data(data), clock(clock), store(store), bitOrder(bitOrder) { 
+Matrices::Matrices(int d, int c, int s, List<Ent>* pL, int bitOrder) :
+data(data), clock(clock), store(store), bitOrder(bitOrder), pListEnt(pL) { 
     reset();
     for (int i = 0; i < 8; i++) { valx[i] = 1 << i; valx[i+8] = 1 << i; }
 

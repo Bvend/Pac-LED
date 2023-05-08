@@ -1,12 +1,23 @@
 #pragma once
 
-class Colision{
+#include "List.h"
+#include "Ent.h"
+
+class Colision {
 private:
-   // Player* player;
+
+    List<Ent>* pListEnt;
+
+    int board[16][32];
 
 public:
-     Colision();
+    Colision();
+    Colision(List<Ent>* pL);
     ~Colision();
+
+    void checkColisions();
+
+    void fillBoard();
 
     /*void colisionEnt(){}
         A funçao verifica se a posição de duas entidades são iguais

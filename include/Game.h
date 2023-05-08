@@ -1,5 +1,6 @@
 #pragma once
 #include "managers/Matrices.h"
+#include "managers/Colision.h"
 #include "Joystick.h"
 #include "Button.h"
 #include "Player.h"
@@ -16,10 +17,13 @@ private:
     Button button;
     Player player;
     List<Ent> listEnt;
+    Colision colider;
     
 public:
     Game();
     ~Game();
 
     void mainLoop();
+
+    void updateEnt();
 };

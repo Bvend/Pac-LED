@@ -1,8 +1,8 @@
 #include "Ent.h"
 
-Ent::Ent() 
+Ent::Ent():
+id(-1) 
 {
-
 }
 
 Ent::~Ent()

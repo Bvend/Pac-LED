@@ -1,5 +1,8 @@
 #pragma once
 
+#include "List.h"
+#include "Ent.h"
+
 #include <Arduino.h>
 
 class Matrices {
@@ -13,9 +16,11 @@ private:
 
     int valx[16];
 
+    List<Ent>* pListEnt;
+
 public:
     Matrices(){}
-    Matrices(int data, int clock, int store, int bitOrder = LSBFIRST);
+    Matrices(int data, int clock, int store, List<Ent>* pL, int bitOrder = LSBFIRST);
     ~Matrices();
 
     void reset();
