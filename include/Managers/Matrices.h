@@ -27,6 +27,8 @@ public:
 
     void retainInfo();
 
+    void updateMatrices();
+
     void draw();
 
     // Percorre o ponteiro para a lista e pega as pos x e y para imprimir

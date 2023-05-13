@@ -1,6 +1,6 @@
 #pragma once
 
-#include "managers/Matrices.h"
+#include "Managers/Matrices.h"
 
 #define PLAYER 1
 #define GHOST 2
@@ -18,6 +18,9 @@ public:
 
     int getPositionX() { return posx; }
     int getPositionY() { return posy; }
+    void setPosition(int posx, int posy);
     int getId() { return id; }
+
+    virtual void handleCollision(int idCol) = 0;
     virtual void update() = 0;
 };

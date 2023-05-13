@@ -16,4 +16,5 @@ public:
 
     void move();
     void update();
+    void handleCollision(int idCol);
 };

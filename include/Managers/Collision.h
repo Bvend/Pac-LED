@@ -1,21 +1,22 @@
 #pragma once
 
 #include "List.h"
-#include "Ent.h"
+#include "Characters/Character.h"
 
-class Colision {
+class Collision {
 private:
 
     List<Ent>* pListEnt;
+    List<Character>* pListCha;
 
     int board[16][32];
 
 public:
-    Colision();
-    Colision(List<Ent>* pL);
-    ~Colision();
+    Collision();
+    Collision(List<Ent>* pL);
+    ~Collision();
 
-    void checkColisions();
+    void checkCollisions();
 
     void fillBoard();
 
