@@ -13,7 +13,8 @@ unsigned long Game::getTotalTime()
 Game::Game() : matrices(DATA, CLOCK, STORE, &listEnt),
 button(BUTTON),
 pPlayer(NULL),
-collider(&listEnt, &listCha)
+gameBoard(),
+collider(&gameBoard, &listEnt, &listCha)
 {
 }
 
@@ -55,14 +56,14 @@ void Game::initialize()
     //    listEnt.push(&wallArray[i]);
     //}
     //for (auto &it : walls) listEnt.push(new Wall(it[0], it[1]));
-    Wall* pWall = NULL;
-    for (int i = 0; i < 9; i++) {
-        pWall = new Wall(walls[i][0], walls[i][1]);
-        listEnt.push(pWall);
-        pWall = NULL;
-    }
-    collider.emptyBoard();
-    collider.fillBoard();
+    //Wall* pWall = NULL;
+    //for (int i = 0; i < 9; i++) {
+    //    pWall = new Wall(walls[i][0], walls[i][1]);
+    //    listEnt.push(pWall);
+    //    pWall = NULL;
+    //}
+    //collider.emptyBoard();
+    //collider.fillBoard();
 }
 
 void Game::endGame()
@@ -73,7 +74,7 @@ void Game::endGame()
     //delete pPlayer;
     pPlayer = NULL;
     matrices.reset();
-    collider.emptyBoard();
+    //collider.emptyBoard();
 }
 
 void Game::mainLoop()

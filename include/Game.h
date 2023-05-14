@@ -6,6 +6,7 @@
 #include "Button.h"
 #include "Characters/Player.h"
 #include "Wall.h"
+#include "Walls.h"
 #include "List.h"
 
 #define DATA 8
@@ -18,6 +19,7 @@ private:
     Matrices matrices;
     Button button;
     Player* pPlayer;
+    Walls gameBoard;
     List<Ent> listEnt;
     List<Character> listCha;
     Collision collider;

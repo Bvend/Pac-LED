@@ -3,25 +3,20 @@
 
 Collision::Collision()
 { 
-    emptyBoard(); pListEnt = NULL; pListCha = NULL;
+    //emptyBoard();
+    pListEnt = NULL; pListCha = NULL;
 }
 
-Collision::Collision(List<Ent>* pL, List<Character>* pC):
+Collision::Collision(Walls* pWalls, List<Ent>* pL, List<Character>* pC):
+pWalls(pWalls),
 pListEnt(pL),
 pListCha(pC)
 {
-    emptyBoard();
+    //emptyBoard();
 }
 
 Collision::~Collision()
 {
-}
-
-void Collision::emptyBoard()
-{
-    for (int i = 0; i < 16; i++)
-        for (int j = 0; j < 32; j++)
-            board[i][j] = 0;
 }
 
 void Collision::checkCollisions()
@@ -38,11 +33,29 @@ void Collision::checkCollisions()
             case 'a': posx = (posx - 1 + 32) % 32; break;
             case 'd': posx = (posx + 1) % 32; break;
             }
-            if (board[posy][posx]) { pElemCha->getItem()->handleCollision(WALL); }
-            pElemCha = pElemCha->getProx();
+            if (pWalls->board[posy][posx]) { pElemCha->getItem()->handleCollision(WALL); }
         }
+        pElemCha = pElemCha->getProx();
     }
 
+    pElemCha = pListCha->getPrimeiro();
+    for (int i = 0; i < pListCha->getAmount(); i++) {
+        if (!pElemCha->getItem()->getCollided()) {
+            int posx = pElemCha->getItem()->getPositionX();
+            int posy = pElemCha->getItem()->getPositionY();
+            //int dir = pElemCha->getItem()->getMovementDirection();
+            //switch(dir) {
+            //case 'w': posy = (posy + 2) % 16; break;
+            //case 's': posy = (posy - 2 + 16) % 16; break;
+            //case 'a': posx = (posx - 2 + 32) % 32; break;
+            //case 'd': posx = (posx + 2) % 32; break;
+            //}
+            if (pWalls->board[posy][posx]) { pElemCha->getItem()->handleCollision(WALL); }
+        }
+        pElemCha = pElemCha->getProx();
+    }
+
+    /*
     Element<Ent>* pElemEnt;
     pElemCha = pListCha->getPrimeiro();
     for (int i = 0; i < pListCha->getAmount(); i++) {
@@ -63,6 +76,15 @@ void Collision::checkCollisions()
         }
         pElemCha = pElemCha->getProx();
     }
+    */
+}
+
+/*
+void Collision::emptyBoard()
+{
+    for (int i = 0; i < 16; i++)
+        for (int j = 0; j < 32; j++)
+            board[i][j] = 0;
 }
 
 void Collision::fillBoard()
@@ -77,3 +99,4 @@ void Collision::fillBoard()
         pElemEnt = pElemEnt->getProx();
     }
 }
+*/
