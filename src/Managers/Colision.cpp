@@ -6,8 +6,9 @@ Collision::Collision()
 
 }
 
-Collision::Collision(List<Ent>* pL):
-pListEnt(pL)
+Collision::Collision(List<Ent>* pL, List<Character>* pC):
+pListEnt(pL),
+pListCha(pC)
 {
     for (int i = 0; i < 16; i++)
         for (int j = 0; j < 32; j++)
@@ -23,7 +24,7 @@ void Collision::checkCollisions()
 {
     // PRIMERIRO CHECAR COLISÕES USANDO BOARD COM PAREDES ENTRE PONTOS
     Element<Character>* pElemCha = pListCha->getPrimeiro();
-    for (int i = 0; i < pListEnt->getAmount(); i++) {
+    for (int i = 0; i < pListCha->getAmount(); i++) {
         int posx = pElemCha->getItem()->getPositionX();
         int posy = pElemCha->getItem()->getPositionX();
         int movDir = pElemCha->getItem()->getMovementDirection();
@@ -49,7 +50,7 @@ void Collision::checkCollisions()
     // SEGUNDO LOOP CHECAR COLISÕES ENTRE PERSONAGENS E DEMAIS ENTIDADES
     Element<Ent>* pElemEnt;
     pElemCha = pListCha->getPrimeiro();
-    for (int i = 0; i < pListEnt->getAmount(); i++) {
+    for (int i = 0; i < pListCha->getAmount(); i++) {
         pElemEnt = pListEnt->getPrimeiro();
         for (int j = 0; j < pListEnt->getAmount(); j++) {
             if (i != j && !pElemCha->getItem()->getCollided()) {
@@ -74,8 +75,8 @@ void Collision::fillBoard()
     for (int i = 0; i < pListEnt->getAmount(); i++) {
         if (pElemEnt->getItem()->getId() == WALL) {
             int posx = pElemEnt->getItem()->getPositionX();
-            int posy = pElemEnt->getItem()->getPositionX();
-            board[posy][posx] = pElemEnt->getItem()->getId();
+            int posy = pElemEnt->getItem()->getPositionY();
+            board[posy][posx] = 1;
             pElemEnt = pElemEnt->getProx();
         }
     }

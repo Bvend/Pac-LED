@@ -1,13 +1,11 @@
 #include "Ent.h"
 
-Ent::Ent():
-id(-1) 
+Ent::Ent() 
 {
 }
 
 Ent::~Ent()
 {
-
 }
 
 void Ent::setPosition(int posx, int posy)

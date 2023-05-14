@@ -16,3 +16,4 @@ void Wall::update()
 void Wall::handleCollision(int idCol)
 {
 }
+ 

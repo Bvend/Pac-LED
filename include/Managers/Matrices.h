@@ -25,6 +25,8 @@ public:
 
     void reset();
 
+    void empty();
+
     void retainInfo();
 
     void updateMatrices();

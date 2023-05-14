@@ -12,7 +12,7 @@ void setup() {
 
 void loop() {
   Game game;
-  game.mainLoop();
+  game.start();
   /*
   button.update();
   while(button.getStart()){

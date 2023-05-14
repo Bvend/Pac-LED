@@ -19,5 +19,5 @@ char Joystick::getInput()
 
     //Serial.println("yay");
 
-    return 0;
+    return '0';
 }

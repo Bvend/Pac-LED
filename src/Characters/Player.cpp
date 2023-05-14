@@ -1,8 +1,12 @@
 #include "Characters/Player.h"
+#include "Game.h"
 
-Player::Player()
+Player::Player() :
+joystick(VRX, VRY)
 {
   id = PLAYER;
+  movCooldown = 250;
+  posx = 0; posy = 0;
 }
 
 Player::~Player()
@@ -40,7 +44,13 @@ void Player::move()
 void Player::update()
 {
   collided = false;
-  move();
+
+  unsigned long totalTime = Game::getTotalTime();
+  if (totalTime - lastCooldown > movCooldown) {
+    lastCooldown = totalTime;
+    move();
+  }
+  
 }
 
 void Player::handleCollision(int idCol)

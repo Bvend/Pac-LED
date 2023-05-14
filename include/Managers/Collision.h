@@ -13,7 +13,7 @@ private:
 
 public:
     Collision();
-    Collision(List<Ent>* pL);
+    Collision(List<Ent>* pL, List<Character>* pC);
     ~Collision();
 
     void checkCollisions();

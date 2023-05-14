@@ -1,9 +1,15 @@
 #include "Game.h"
 #include "Element.h"
 
+unsigned long Game::totalGameTime = 0;
+
+unsigned long Game::getTotalTime() { return totalGameTime; }
+
 Game::Game() :
 matrices(DATA, CLOCK, STORE, &listEnt),
-button(BUTTON)
+button(BUTTON),
+pPlayer(NULL),
+collider(&listEnt, &listCha)
 {
 }
 
@@ -11,12 +17,15 @@ Game::~Game() {}
 
 void Game::start()
 {
-    button.update();
-    if (button.getStart()) {
-        initialize();
-        while(!button.getStart()) mainLoop();
-        endGame();
+    while(true) {
+        button.update();
+        if (button.getStart()) {
+            initialize();
+            while(!button.getStart()) mainLoop();
+            endGame();
+        }
     }
+    
 }
 
 void Game::initialize()
@@ -35,6 +44,7 @@ void Game::endGame()
         delete pElem->getItem();
         pElem = listEnt.getPrimeiro();
     }
+    pPlayer = NULL;
 }
 
 void Game::mainLoop()
@@ -47,6 +57,7 @@ void Game::mainLoop()
 void Game::updateEnt()
 {
     Element<Ent>* pElemEnt = listEnt.getPrimeiro();
+    totalGameTime = millis();
     for (int i = 0; i < listEnt.getAmount(); i++) {
         pElemEnt->getItem()->update();
         pElemEnt = pElemEnt->getProx();

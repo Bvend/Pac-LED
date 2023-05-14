@@ -1,4 +1,5 @@
 #pragma once
+#include <stdio.h>
 #include "Managers/Matrices.h"
 #include "Managers/Collision.h"
 #include "Joystick.h"
@@ -19,6 +20,8 @@ private:
     List<Ent> listEnt;
     List<Character> listCha;
     Collision collider;
+
+    static unsigned long totalGameTime;
     
 public:
     Game();
@@ -33,4 +36,6 @@ public:
     void mainLoop();
 
     void updateEnt();
+
+    static unsigned long getTotalTime();
 };
