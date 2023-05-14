@@ -1,7 +1,5 @@
 #pragma once
 
-#include "Managers/Matrices.h"
-
 #define PLAYER 1
 #define GHOST 2
 #define CHERRY 3
@@ -14,7 +12,7 @@ protected:
 
 public:
     Ent();
-    ~Ent();
+    virtual ~Ent();
 
     int getPositionX() { return posx; }
     int getPositionY() { return posy; }

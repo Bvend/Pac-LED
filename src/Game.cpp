@@ -17,13 +17,19 @@ Game::~Game() {}
 
 void Game::start()
 {
+    //matrices.reset();
     while(true) {
         button.update();
         if (button.getStart()) {
+            delay(1000);
+            //Serial.println("yay");
             initialize();
-            while(!button.getStart()) mainLoop();
+            while(button.getStart()) { mainLoop(); button.update();  }
+            delay(1000);
             endGame();
+            //Serial.println("yay2");
         }
+        
     }
     
 }
@@ -44,7 +50,9 @@ void Game::endGame()
         delete pElem->getItem();
         pElem = listEnt.getPrimeiro();
     }
+    listEnt.clear();
     pPlayer = NULL;
+    matrices.reset();
 }
 
 void Game::mainLoop()

@@ -9,7 +9,7 @@ protected:
 
 public:
     Character ();
-    ~Character ();
+    virtual ~Character ();
 
     char getMovementDirection() { return movementDirection; }
     void setCollided(bool collided) { this->collided = collided; }

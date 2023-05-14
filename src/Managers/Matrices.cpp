@@ -2,13 +2,13 @@
 
 Matrices::Matrices(int d, int c, int s, List<Ent>* pL, int bitOrder) :
 data(d), clock(c), store(s), bitOrder(bitOrder), pListEnt(pL) { 
-    reset();
-    draw();
     for (int i = 0; i < 8; i++) { valx[i] = 1 << i; valx[i+8] = 1 << i; }
 
     pinMode(d,OUTPUT);
     pinMode(s,OUTPUT);
     pinMode(c,OUTPUT);
+
+    reset();
 }
 
 Matrices::~Matrices() { }

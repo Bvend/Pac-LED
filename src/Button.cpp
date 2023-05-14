@@ -5,6 +5,11 @@ Button::Button(int p) : pin(p), start(false), buttonIsPressed(false) { pinMode(p
 
 Button::~Button() { }
 
+void Button::setButtonIsPressed(bool pressed)
+{
+    buttonIsPressed = pressed;
+}
+
 void Button::update() {   
     int var = digitalRead(pin);
     

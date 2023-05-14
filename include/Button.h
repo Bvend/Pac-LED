@@ -13,6 +13,7 @@ public:
     Button(int p);
     ~Button();
 
+    void setButtonIsPressed(bool pressed);
     bool getStart() { return start; }
     void update();
 };
