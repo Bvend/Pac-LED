@@ -1,6 +1,6 @@
 #include "Characters/Character.h"
 
-Character::Character() :
+Character::Character():
 movementDirection('0'),
 collided(false),
 lastCooldown(0)

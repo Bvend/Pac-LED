@@ -5,6 +5,7 @@
 #include "Joystick.h"
 #include "Button.h"
 #include "Characters/Player.h"
+#include "Wall.h"
 #include "List.h"
 
 #define DATA 8
@@ -21,6 +22,8 @@ private:
     List<Character> listCha;
     Collision collider;
 
+    // Wall wallArray[30];
+
     static unsigned long totalGameTime;
     
 public:
@@ -35,7 +38,7 @@ public:
 
     void mainLoop();
 
-    void updateEnt();
+    void updateCha();
 
     static unsigned long getTotalTime();
 };

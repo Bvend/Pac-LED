@@ -1,14 +1,15 @@
 #pragma once
 
-#include<Ent.h>
+#include "Ent.h"
 
 class Wall : public Ent {
 private:
 
 public:
-    Wall();
-    ~Wall();
+    Wall() { id = WALL; }
+    Wall(int posy, int posx) { this->posx = posx; this->posy = posy; id = WALL; }
+    ~Wall() {}
 
-    void update();
-    void handleCollision(int idCol);
+    void update() {}
+    void handleCollision(int idCol) {}
 };

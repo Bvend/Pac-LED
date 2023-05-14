@@ -1,22 +1,24 @@
 #include "Managers/Matrices.h"
 
 Matrices::Matrices(int d, int c, int s, List<Ent>* pL, int bitOrder) :
-data(d), clock(c), store(s), bitOrder(bitOrder), pListEnt(pL) { 
+data(d),
+clock(c),
+store(s),
+bitOrder(bitOrder),
+pListEnt(pL)
+{ 
     for (int i = 0; i < 8; i++) { valx[i] = 1 << i; valx[i+8] = 1 << i; }
-
-    pinMode(d,OUTPUT);
-    pinMode(s,OUTPUT);
-    pinMode(c,OUTPUT);
-
+    pinMode(d,OUTPUT); pinMode(s,OUTPUT); pinMode(c,OUTPUT);
     reset();
 }
 
-Matrices::~Matrices() { }
+Matrices::~Matrices()
+{
+}
 
 void Matrices::reset()
-{
-    empty();
-    draw();
+{ 
+    empty(); draw();
 }
 
 void Matrices::empty()
@@ -29,12 +31,11 @@ void Matrices::empty()
     }
 }
 
-void Matrices::retainInfo() {
-    // Talvez tenhamos que mudar a função delay no futuro pq ela pausa o programa completamente
+void Matrices::retainInfo()
+{
     digitalWrite(store, HIGH); delayMicroseconds(10); 
     digitalWrite(store, LOW); delayMicroseconds(10);
 }
-
 
 void Matrices::updateMatrices()
 {
