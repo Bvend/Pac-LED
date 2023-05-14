@@ -35,11 +35,14 @@ void Matrices::retainInfo() {
     digitalWrite(store, LOW); delayMicroseconds(10);
 }
 
+
 void Matrices::updateMatrices()
 {
     empty();
     int red[8][16], green[8][16];
-    memset(&red, 0, sizeof(red)); memset(&green, 0, sizeof(green));
+    for (int i = 0; i < 8; i++)
+        for (int j = 0; j < 16; j++)
+            red[i][j] = green[i][j] = 0;
     Element<Ent>* pElemEnt = pListEnt->getPrimeiro();
     for (int i = 0; i < pListEnt->getAmount(); i++) {
         int posx = pElemEnt->getItem()->getPositionX() / 2;
@@ -53,7 +56,7 @@ void Matrices::updateMatrices()
         for (int j = 0; j < 16; j++) {
             if (red[i][j]) picRed[(int)(j/8)][i] += valx[j];
             if (green[i][j]) picGreen[(int)(j/8)][i] += valx[j];
-        }    
+        }
     draw();
 }
 

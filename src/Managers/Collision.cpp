@@ -1,9 +1,10 @@
 #include "Managers/Collision.h"
-#include "Element.h"
 
 Collision::Collision()
 {
-
+    for (int i = 0; i < 16; i++)
+        for (int j = 0; j < 32; j++)
+            board[i][j] = 0;
 }
 
 Collision::Collision(List<Ent>* pL, List<Character>* pC):
@@ -26,7 +27,7 @@ void Collision::checkCollisions()
     Element<Character>* pElemCha = pListCha->getPrimeiro();
     for (int i = 0; i < pListCha->getAmount(); i++) {
         int posx = pElemCha->getItem()->getPositionX();
-        int posy = pElemCha->getItem()->getPositionX();
+        int posy = pElemCha->getItem()->getPositionY();
         int movDir = pElemCha->getItem()->getMovementDirection();
 
         switch(movDir) {

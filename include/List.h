@@ -79,6 +79,23 @@ public:
 		amount = 0;
     }
 
+    void clearAndDelete() {
+        if (pFirst){
+			Element<LIST>* temp = pFirst;
+			int i = 0;
+
+			while (temp != NULL && i < amount){
+					pFirst = (temp->getProx());
+                    temp->deleteItem();
+					delete temp;
+					temp = pFirst;
+					i++;
+			}
+
+		}
+		pLast = NULL;
+		amount = 0;
+    }
 };
 
 template <class LIST>

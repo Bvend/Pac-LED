@@ -22,12 +22,10 @@ void Game::start()
         button.update();
         if (button.getStart()) {
             delay(1000);
-            //Serial.println("yay");
             initialize();
             while(button.getStart()) { mainLoop(); button.update();  }
             delay(1000);
             endGame();
-            //Serial.println("yay2");
         }
         
     }
@@ -44,13 +42,16 @@ void Game::initialize()
 void Game::endGame()
 {
     listCha.clear();
-    Element<Ent>* pElem = listEnt.getPrimeiro();
-    while (listEnt.getAmount()) {
-        listEnt.pop(pElem->getItem());
-        delete pElem->getItem();
-        pElem = listEnt.getPrimeiro();
-    }
-    listEnt.clear();
+    listEnt.clearAndDelete();
+    //Element<Ent>* pElem = listEnt.getPrimeiro();
+    //while (listEnt.getAmount()) {
+    //    listEnt.pop(pElem->getItem());
+    //    delete pElem->getItem();
+    //    pElem = listEnt.getPrimeiro();
+    //}
+
+    // delete pPlayer;
+
     pPlayer = NULL;
     matrices.reset();
 }
