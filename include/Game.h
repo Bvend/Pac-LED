@@ -2,12 +2,10 @@
 #include <stdio.h>
 #include "Managers/Matrices.h"
 #include "Managers/Collision.h"
-#include "Joystick.h"
 #include "Button.h"
 #include "Characters/Player.h"
-#include "Wall.h"
 #include "Walls.h"
-#include "List.h"
+#include "List/List.h"
 
 #define DATA 8
 #define CLOCK 10
@@ -19,12 +17,10 @@ private:
     Matrices matrices;
     Button button;
     Player* pPlayer;
-    Walls gameBoard;
+    Walls walls;
     List<Ent> listEnt;
     List<Character> listCha;
     Collision collider;
-
-    // Wall wallArray[30];
 
     static unsigned long totalGameTime;
     
@@ -32,9 +28,9 @@ public:
     Game();
     ~Game();
 
-    void start();
+    void runGame();
 
-    void initialize();
+    void initializeGame();
 
     void endGame();
 

@@ -1,11 +1,11 @@
 #include "Managers/Matrices.h"
 
-Matrices::Matrices(int d, int c, int s, List<Ent>* pL, int bitOrder) :
+Matrices::Matrices(int d, int c, int s, List<Character>* pListCha, int bitOrder) :
 data(d),
 clock(c),
 store(s),
 bitOrder(bitOrder),
-pListEnt(pL)
+pListCha(pListCha)
 { 
     for (int i = 0; i < 8; i++) { valx[i] = 1 << i; valx[i+8] = 1 << i; }
     pinMode(d,OUTPUT); pinMode(s,OUTPUT); pinMode(c,OUTPUT);
@@ -44,14 +44,14 @@ void Matrices::updateMatrices()
     for (int i = 0; i < 8; i++)
         for (int j = 0; j < 16; j++)
             red[i][j] = green[i][j] = 0;
-    Element<Ent>* pElemEnt = pListEnt->getPrimeiro();
-    for (int i = 0; i < pListEnt->getAmount(); i++) {
-        int posx = pElemEnt->getItem()->getPositionX() / 2;
-        int posy = pElemEnt->getItem()->getPositionY() / 2;
-        int idElem = pElemEnt->getItem()->getId();
+    Element<Character>* pElemCha = pListCha->getPrimeiro();
+    for (int i = 0; i < pListCha->getAmount(); i++) {
+        int posx = pElemCha->getItem()->getPositionX() / 2;
+        int posy = pElemCha->getItem()->getPositionY() / 2;
+        int idElem = pElemCha->getItem()->getId();
         if (idElem == PLAYER || idElem == GHOST) red[posy][posx] = 1;
         if (idElem == PLAYER || idElem == CHERRY) green[posy][posx] = 1;
-        pElemEnt = pElemEnt->getProx();
+        pElemCha = pElemCha->getProx();
     }
     for (int i = 0; i < 8; i++)
         for (int j = 0; j < 16; j++) {

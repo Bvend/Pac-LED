@@ -14,6 +14,6 @@ public:
     ~Button();
 
     void setButtonIsPressed(bool pressed);
-    bool getStart() { return start; }
+    bool getStart();
     void update();
 };

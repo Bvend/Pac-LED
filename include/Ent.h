@@ -11,13 +11,13 @@ protected:
     int id;
 
 public:
-    Ent(int posy = 0, int posx = 0, int id = -1): posx(posx), posy(posy), id(id) {}
-    virtual ~Ent() {}
+    Ent(int posy = 0, int posx = 0, int id = -1);
+    virtual ~Ent();
 
-    int getPositionX() { return posx; }
-    int getPositionY() { return posy; }
-    void setPosition(int posx, int posy) { this->posx = posx; this->posy = posy; }
-    int getId() { return id; }
+    int getPositionX();
+    int getPositionY();
+    void setPosition(int posx, int posy);
+    int getId();
 
     virtual void handleCollision(int idCol) = 0;
     virtual void update() = 0;

@@ -1,7 +1,9 @@
 #include "Button.h"
 
-
-Button::Button(int p) : pin(p), start(false), buttonIsPressed(false)
+Button::Button(int p):
+pin(p),
+start(false),
+buttonIsPressed(false)
 {
     pinMode(p, INPUT);
 }
@@ -15,12 +17,14 @@ void Button::setButtonIsPressed(bool pressed)
     buttonIsPressed = pressed;
 }
 
+bool Button::getStart()
+{
+    return start;
+}
+
 void Button::update()
 {   
     int var = digitalRead(pin);
-    
     if(var && !buttonIsPressed) { start = !start; buttonIsPressed = true; }
     else if (!var) buttonIsPressed = false;
-
-    // Serial.println(var);
 }

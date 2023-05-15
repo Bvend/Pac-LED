@@ -4,8 +4,10 @@ class Collision;
 class Walls {
 private:
     friend class Collision;
-    int board[16][32];
+    int wallsMap[16][32];
 public:
     Walls();
     ~Walls();
+    void clearWallsMap();
+    void fillWallsMap();
 };

@@ -10,3 +10,18 @@ lastCooldown(0)
 Character::~Character()
 {
 }
+
+char Character::getMovementDirection()
+{
+    return movementDirection;
+}
+
+void Character::setCollided(bool collided)
+{
+    this->collided = collided;
+}
+
+bool Character::getCollided()
+{
+    return collided;
+}

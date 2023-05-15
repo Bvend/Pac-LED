@@ -60,7 +60,6 @@ void Player::handleCollision(int idCol)
           posx = (posx + 2) % 32;
           break;
     }
-    //movementDirection = '0';
   }
   if (idCol == GHOST) {
 

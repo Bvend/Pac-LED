@@ -11,9 +11,9 @@ public:
     Character ();
     virtual ~Character ();
 
-    char getMovementDirection() { return movementDirection; }
-    void setCollided(bool collided) { this->collided = collided; }
-    bool getCollided() { return collided; }
+    char getMovementDirection();
+    void setCollided(bool collided);
+    bool getCollided();
 
     virtual void handleCollision(int idCol) = 0;
     virtual void update() = 0; 
