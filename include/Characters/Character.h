@@ -12,8 +12,9 @@ public:
     virtual ~Character ();
 
     char getMovementDirection();
-    void setCollided(bool collided);
+    void setMovementDirection(char movementDirection);
     bool getCollided();
+    void setCollided(bool collided);
 
     virtual void handleCollision(int idCol) = 0;
     virtual void update() = 0; 

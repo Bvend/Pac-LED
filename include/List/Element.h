@@ -1,8 +1,7 @@
 #pragma once
 #include <stdio.h>
 
-template <class ELEM> class Element
-{
+template <class ELEM> class Element {
 private:
     Element <ELEM>* pProx;
     ELEM* item;

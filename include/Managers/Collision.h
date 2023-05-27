@@ -1,19 +1,16 @@
 #pragma once
 
-#include "List/List.h"
 #include "Walls.h"
-#include "Characters/Character.h"
+#include "Characters/Player.h"
 
 class Collision {
 private:
-    Walls* pWalls;
-    List<Character>* pListCha;
+    Player* pPlayer;
 
 public:
     Collision();
-    Collision(Walls* pWalls, List<Character>* pC);
+    Collision(Player* pPlayer);
     ~Collision();
 
     void checkCollisions();
-
 };

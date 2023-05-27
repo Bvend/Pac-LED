@@ -3,11 +3,9 @@ class Collision;
 
 class Walls {
 private:
-    friend class Collision;
-    int wallsMap[16][32];
+    static int wallsMap[16][32];
 public:
     Walls();
     ~Walls();
-    void clearWallsMap();
-    void fillWallsMap();
+    static bool checkWall(int posy, int posx);
 };

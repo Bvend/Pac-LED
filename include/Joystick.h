@@ -2,8 +2,7 @@
 
 #include <Arduino.h>
 
-class Joystick
-{
+class Joystick {
 private:
     int vrx;
     int vry;

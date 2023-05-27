@@ -21,7 +21,7 @@ int Ent::getPositionY()
     return posy;
 }
 
-void Ent::setPosition(int posx, int posy)
+void Ent::setPosition(int posy, int posx)
 {
     this->posx = posx; this->posy = posy;
 }

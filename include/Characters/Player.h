@@ -14,6 +14,8 @@ public:
     Player();
     ~Player();
 
+    void initialize();
+
     void move();
     void update();
     void handleCollision(int idCol);

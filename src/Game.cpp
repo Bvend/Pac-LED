@@ -13,9 +13,12 @@ unsigned long Game::getTotalTime()
 Game::Game():
 matrices(DATA, CLOCK, STORE, &listCha),
 button(BUTTON),
-pPlayer(NULL),
+player(),
+goodCop(),
+badCop(),
+//coop(),
 walls(),
-collider(&walls, &listCha)
+collider(&player)
 {
 }
 
@@ -23,7 +26,7 @@ Game::~Game()
 {
 }
 
-void Game::runGame()
+void Game::gameLoop()
 {
     while (true)
     {
@@ -32,7 +35,7 @@ void Game::runGame()
         {
             delay(500);
             initializeGame();
-            while (button.getStart()) { mainLoop(); button.update(); }
+            while (button.getStart()) { runGame(); button.update(); }
             delay(500);
             endGame();
         }
@@ -41,33 +44,52 @@ void Game::runGame()
 
 void Game::initializeGame()
 {
-    pPlayer = new Player();
-    listEnt.push(pPlayer);
-    listCha.push(pPlayer);
+    //digitalWrite(LED_BUILTIN, HIGH);
+    totalGameTime = millis();
+    Ghost::setPlayer(&player);
+    player.initialize();
+    goodCop.initialize(6, 8, 500, 5000, 10000);
+    badCop.initialize(8, 8, 400, 10000, 5000);
+    //coop.initialize(10, 8, 400, 10000, 5000);
+    listCha.push(&player);
+    listCha.push(&goodCop);
+    listCha.push(&badCop);
+    //listCha.push(&coop);
 }
 
 void Game::endGame()
 {
     listCha.clear();
-    listEnt.clearAndDelete();
-    pPlayer = NULL;
     matrices.reset();
 }
 
-void Game::mainLoop()
+void Game::runGame()
 {
     updateCha();
     collider.checkCollisions();
     matrices.updateMatrices();
+    //updateMatrices();
 }
 
 void Game::updateCha()
 {
-    Element<Character> *pElemCha = listCha.getPrimeiro();
     totalGameTime = millis();
-    for (int i = 0; i < listCha.getAmount(); i++)
-    {
-        pElemCha->getItem()->update();
-        pElemCha = pElemCha->getProx();
-    }
+    player.update();
+    goodCop.update();
+    badCop.update();
+    //coop.update();
+    //Element<Character> *pElemCha = listCha.getPrimeiro();
+    //for (int i = 0; i < listCha.getAmount(); i++)
+    //{
+    //    pElemCha->getItem()->update();
+    //    pElemCha = pElemCha->getProx();
+    //}
+}
+
+void Game::updateMatrices()
+{
+    matrices.empty();
+    matrices.updatePic(player.getPositionY(), player.getPositionX(), player.getId());
+    //matrices.updatePic(goodCop.getPositionY(), goodCop.getPositionX(), goodCop.getId());
+    matrices.draw();
 }

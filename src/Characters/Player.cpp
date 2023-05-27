@@ -13,10 +13,19 @@ Player::~Player()
 {
 }
 
+void Player::initialize()
+{
+  collided = false;
+  movementDirection = '0';
+  posx = 0; posy = 0;
+}
+
 void Player::move()
 {   
   char dir = joystick.getInput();
 
+  //if (dir == '0') dir = movementDirection;
+  /**/
   if (dir == 'w') {
     posy = (posy - 2 + 16) % 16;
   } else if (dir == 's') {
@@ -34,12 +43,10 @@ void Player::update()
 {
   unsigned long totalTime = Game::getTotalTime();
   if (totalTime - lastCooldown > movCooldown) {
-    digitalWrite(LED_BUILTIN, HIGH);
     collided = false;
     lastCooldown = totalTime;
     move();
   }
-  
 }
 
 void Player::handleCollision(int idCol)
@@ -60,6 +67,7 @@ void Player::handleCollision(int idCol)
           posx = (posx + 2) % 32;
           break;
     }
+    movementDirection = '0';
   }
   if (idCol == GHOST) {
 

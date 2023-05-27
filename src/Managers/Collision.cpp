@@ -3,12 +3,11 @@
 
 Collision::Collision()
 { 
-    pWalls = NULL; pListCha = NULL;
+    pPlayer = NULL;
 }
 
-Collision::Collision(Walls* pWalls, List<Character>* pC):
-pWalls(pWalls),
-pListCha(pC)
+Collision::Collision(Player* pPlayer):
+pPlayer(pPlayer)
 {
 }
 
@@ -18,6 +17,23 @@ Collision::~Collision()
 
 void Collision::checkCollisions()
 {
+    if (!(pPlayer->getCollided())) {
+        int oddPosx, posx = pPlayer->getPositionX();
+        int oddPosy, posy = pPlayer->getPositionY();
+        oddPosx = posx; oddPosy = posy;
+        int dir = pPlayer->getMovementDirection();
+        switch(dir) {
+        case 'w': oddPosy = (oddPosy + 1) % 16; break;
+        case 's': oddPosy = (oddPosy - 1 + 16) % 16; break;
+        case 'a': oddPosx = (oddPosx - 1 + 32) % 32; break;
+        case 'd': oddPosx = (oddPosx + 1) % 32; break;
+        }
+        if (Walls::checkWall(oddPosy,oddPosx) ||
+            Walls::checkWall(posy,posx)) { 
+            pPlayer->handleCollision(WALL);
+        }
+    }
+    /*
     Element<Character>* pElemCha = pListCha->getPrimeiro();
     for (int i = 0; i < pListCha->getAmount(); i++) {
         if (!pElemCha->getItem()->getCollided()) {
@@ -37,7 +53,8 @@ void Collision::checkCollisions()
             }
         }
         pElemCha = pElemCha->getProx();
-    } 
+    }
+    */
     /*
     Character<Cha>* pElemChaCol;
     pElemCha = pListCha->getPrimeiro();

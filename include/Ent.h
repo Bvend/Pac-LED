@@ -16,7 +16,7 @@ public:
 
     int getPositionX();
     int getPositionY();
-    void setPosition(int posx, int posy);
+    void setPosition(int posy, int posx);
     int getId();
 
     virtual void handleCollision(int idCol) = 0;

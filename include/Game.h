@@ -4,6 +4,7 @@
 #include "Managers/Collision.h"
 #include "Button.h"
 #include "Characters/Player.h"
+#include "Characters/Ghost.h"
 #include "Walls.h"
 #include "List/List.h"
 
@@ -16,11 +17,14 @@ class Game {
 private:
     Matrices matrices;
     Button button;
-    Player* pPlayer;
+    Player player;
+    Ghost goodCop;
+    Ghost badCop;
+    //Ghost coop;
     Walls walls;
-    List<Ent> listEnt;
     List<Character> listCha;
     Collision collider;
+    // ttt[16][32];
 
     static unsigned long totalGameTime;
     
@@ -28,15 +32,17 @@ public:
     Game();
     ~Game();
 
-    void runGame();
+    void gameLoop();
 
     void initializeGame();
 
     void endGame();
 
-    void mainLoop();
+    void runGame();
 
     void updateCha();
+
+    void updateMatrices();
 
     static unsigned long getTotalTime();
 };
