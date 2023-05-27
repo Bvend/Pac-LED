@@ -2,14 +2,14 @@
 
 #include <Arduino.h>
 
-class Joystick
-{
+class Joystick {
 private:
     int vrx;
     int vry;
 
 public:
     Joystick(int vrx, int vry);
+    Joystick(){}
     ~Joystick(){}
 
     char getInput();
