@@ -6,6 +6,8 @@ class Joystick {
 private:
     int vrx;
     int vry;
+    unsigned long lastCooldown;
+    unsigned long readCooldown;
 
 public:
     Joystick(int vrx, int vry);

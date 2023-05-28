@@ -6,8 +6,10 @@ Collision::Collision()
     pPlayer = NULL;
 }
 
-Collision::Collision(Player* pPlayer):
-pPlayer(pPlayer)
+Collision::Collision(Player* pPlayer, Ghost* pGhost1, Ghost* pGhost2):
+pPlayer(pPlayer),
+pGhost1(pGhost1),
+pGhost2(pGhost2)
 {
 }
 
@@ -17,64 +19,77 @@ Collision::~Collision()
 
 void Collision::checkCollisions()
 {
-    if (!(pPlayer->getCollided())) {
-        int oddPosx, posx = pPlayer->getPositionX();
-        int oddPosy, posy = pPlayer->getPositionY();
-        oddPosx = posx; oddPosy = posy;
+    if (!pPlayer->getMoved()) {
+        int posy = pPlayer->getPositionY(), posx = pPlayer->getPositionX();
         int dir = pPlayer->getMovementDirection();
-        switch(dir) {
-        case 'w': oddPosy = (oddPosy + 1) % 16; break;
-        case 's': oddPosy = (oddPosy - 1 + 16) % 16; break;
-        case 'a': oddPosx = (oddPosx - 1 + 32) % 32; break;
-        case 'd': oddPosx = (oddPosx + 1) % 32; break;
+        int prevDir = pPlayer->getPrevMovementDirection();
+        if (!((dir == 'w' && prevDir == 's') ||
+              (dir == 's' && prevDir == 'w') ||
+              (dir == 'a' && prevDir == 'd') ||
+              (dir == 'd' && prevDir == 'a')) && 
+              dir != '0') {
+            playerWallCollision(posy, posx, dir);
         }
-        if (Walls::checkWall(oddPosy,oddPosx) ||
-            Walls::checkWall(posy,posx)) { 
-            pPlayer->handleCollision(WALL);
+
+        if (!pPlayer->getMoved()) {
+            playerWallCollision(posy, posx, prevDir);
+        }
+
+        if (!pPlayer->getMoved()) {
+            pPlayer->setPrevMovementDirection('0');
+            pPlayer->setMovementDirection('0');
+            pPlayer->setMoved(true);
         }
     }
-    /*
-    Element<Character>* pElemCha = pListCha->getPrimeiro();
-    for (int i = 0; i < pListCha->getAmount(); i++) {
-        if (!pElemCha->getItem()->getCollided()) {
-            int oddPosx, posx = pElemCha->getItem()->getPositionX();
-            int oddPosy, posy = pElemCha->getItem()->getPositionY();
-            oddPosx = posx; oddPosy = posy;
-            int dir = pElemCha->getItem()->getMovementDirection();
-            switch(dir) {
-            case 'w': oddPosy = (oddPosy + 1) % 16; break;
-            case 's': oddPosy = (oddPosy - 1 + 16) % 16; break;
-            case 'a': oddPosx = (oddPosx - 1 + 32) % 32; break;
-            case 'd': oddPosx = (oddPosx + 1) % 32; break;
-            }
-            if (pWalls->wallsMap[oddPosy][oddPosx] ||
-                pWalls->wallsMap[posy][posx]) { 
-                pElemCha->getItem()->handleCollision(WALL);
-            }
-        }
-        pElemCha = pElemCha->getProx();
+
+    playerCherryCollision();
+
+    playerGhostCollision();
+}
+
+void Collision::playerWallCollision(int posy, int posx, int movementDirection)
+{
+    int oddPosy, evenPosy = posy;
+    int oddPosx, evenPosx = posx;
+    oddPosx = evenPosx; oddPosy = evenPosy;
+    int dir = movementDirection;
+    switch(dir) {
+    case 'w': 
+        oddPosy = (oddPosy - 1 + 16) % 16;
+        evenPosy = (evenPosy - 2 + 16) % 16;
+        break;
+    case 's': 
+        oddPosy = (oddPosy + 1) % 16;
+        evenPosy = (evenPosy + 2) % 16;
+        break;
+    case 'a': 
+        oddPosx = (oddPosx + 1) % 32;
+        evenPosx = (evenPosx + 2) % 32;
+        break;
+    case 'd': 
+        oddPosx = (oddPosx - 1 + 32) % 32;
+        evenPosx = (evenPosx - 2 + 32) % 32;
+        break;
     }
-    */
-    /*
-    Character<Cha>* pElemChaCol;
-    pElemCha = pListCha->getPrimeiro();
-    for (int i = 0; i < pListCha->getAmount(); i++) {
-        pElemChaCol = pElemChaCol->getPrimeiro();
-        for (int j = 0; j < pListEnt->getAmount(); j++) {
-            if (pElemChaCol->getItem() != pElemCha->getItem() &&
-                !pElemCha->getItem()->getCollided()) {
-                int posx1 = pElemCha->getItem()->getPositionX();
-                int posy1 = pElemCha->getItem()->getPositionY();
-                int posx2 = pElemChaCol->getItem()->getPositionX();
-                int posy2 = pElemChaCol->getItem()->getPositionY();
-                if (posx1 == posx2 && posy1 == posy2) {
-                    pElemCha->getItem()->handleCollision(pElemEnt->getItem()->getId());
-                    pElemChaCol->getItem()->handleCollision(pElemCha->getItem()->getId());
-                }
-            }
-            pElemChaCol = pElemChaCol->getProx();
-        }
-        pElemCha = pElemCha->getProx();
+    if (!Walls::checkWall(oddPosy,oddPosx) &&
+        !Walls::checkWall(evenPosy,evenPosx)) { 
+        pPlayer->setPosition(evenPosy, evenPosx);
+        pPlayer->setPrevMovementDirection(movementDirection);
+        pPlayer->setMoved(true);
     }
-    */
+}
+
+void Collision::playerCherryCollision()
+{
+    int posy = pPlayer->getPositionY(), posx = pPlayer->getPositionX();
+    if (Walls::checkCherry(posy, posx)) Walls::eatCherry(posy, posx);
+}
+
+void Collision::playerGhostCollision()
+{
+    int posy = pPlayer->getPositionY(), posx = pPlayer->getPositionX();
+    if ((pGhost1->getPositionY() == posy && pGhost1->getPositionX() == posx) ||
+        (pGhost2->getPositionY() == posy && pGhost2->getPositionX() == posx)) {
+            pPlayer->setAlive(false);
+    }
 }

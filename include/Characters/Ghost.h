@@ -27,5 +27,4 @@ public:
     void updateMode(unsigned int totalTime);
     void move();
     void update();
-    void handleCollision(int idCol);
 };

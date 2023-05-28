@@ -1,9 +1,9 @@
 #pragma once
 
-#define PLAYER 1
+#define WALL 1
 #define GHOST 2
 #define CHERRY 3
-#define WALL 4
+#define PLAYER 4
 
 class Ent {
 protected:
@@ -18,7 +18,6 @@ public:
     int getPositionY();
     void setPosition(int posy, int posx);
     int getId();
-
-    virtual void handleCollision(int idCol) = 0;
+    
     virtual void update() = 0;
 };

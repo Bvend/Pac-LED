@@ -22,6 +22,11 @@ bool Button::getStart()
     return start;
 }
 
+void Button::setStart(bool start)
+{
+    this->start = start;
+}
+
 void Button::update()
 {   
     int var = digitalRead(pin);

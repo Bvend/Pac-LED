@@ -16,7 +16,7 @@ targetx(0),
 distFromTarget(0)
 {
     id = GHOST;
-    collided = true;
+    moved = true;
     this->posy = posy;
     this->posx = posx;
 }
@@ -37,7 +37,8 @@ void Ghost::initialize(int posy, int posx, unsigned long cooldown, unsigned long
     targetx = posx; 
     distFromTarget = 0;
     currentMode = 0;
-    lastCooldown = Game::getTotalTime();;
+    lastCooldown = Game::getTotalTime();
+    moved = false;
 }
 
 void Ghost::setTimes(unsigned long atackTime, unsigned long scatterTime)
@@ -126,8 +127,4 @@ void Ghost::update()
         }
         move();
     }
-}
-
-void Ghost::handleCollision(int idCol)
-{
 }

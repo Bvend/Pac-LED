@@ -15,5 +15,6 @@ public:
 
     void setButtonIsPressed(bool pressed);
     bool getStart();
+    void setStart(bool start);
     void update();
 };

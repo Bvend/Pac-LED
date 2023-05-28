@@ -2,7 +2,7 @@
 
 Character::Character():
 movementDirection('0'),
-collided(false),
+moved(false),
 movCooldown(0),
 lastCooldown(0)
 { 
@@ -22,12 +22,12 @@ void Character::setMovementDirection(char movementDirection)
     this->movementDirection = movementDirection;
 }
 
-void Character::setCollided(bool collided)
+void Character::setMoved(bool moved)
 {
-    this->collided = collided;
+    this->moved = moved;
 }
 
-bool Character::getCollided()
+bool Character::getMoved()
 {
-    return collided;
+    return moved;
 }

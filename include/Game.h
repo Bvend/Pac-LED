@@ -15,14 +15,12 @@
 
 class Game {
 private:
-    Matrices matrices;
     Button button;
     Player player;
     Ghost goodCop;
     Ghost badCop;
     //Ghost coop;
-    Walls walls;
-    List<Character> listCha;
+    Matrices matrices;
     Collision collider;
     // ttt[16][32];
 

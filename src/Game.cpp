@@ -11,14 +11,13 @@ unsigned long Game::getTotalTime()
 }
 
 Game::Game():
-matrices(DATA, CLOCK, STORE, &listCha),
 button(BUTTON),
 player(),
 goodCop(),
 badCop(),
 //coop(),
-walls(),
-collider(&player)
+matrices(DATA, CLOCK, STORE, &player, &goodCop, &badCop),
+collider(&player, &goodCop, &badCop)
 {
 }
 
@@ -35,7 +34,11 @@ void Game::gameLoop()
         {
             delay(500);
             initializeGame();
-            while (button.getStart()) { runGame(); button.update(); }
+            while (button.getStart()) { 
+                runGame();
+                button.update();
+                if (!player.getAlive()) button.setStart(false);
+            }
             delay(500);
             endGame();
         }
@@ -45,21 +48,22 @@ void Game::gameLoop()
 void Game::initializeGame()
 {
     //digitalWrite(LED_BUILTIN, HIGH);
+    Walls::initializeScenery();
     totalGameTime = millis();
     Ghost::setPlayer(&player);
     player.initialize();
-    goodCop.initialize(6, 8, 500, 5000, 10000);
-    badCop.initialize(8, 8, 400, 10000, 5000);
+    goodCop.initialize(6, 8, 800, 5000, 10000);
+    badCop.initialize(8, 8, 700, 6000, 9000);
     //coop.initialize(10, 8, 400, 10000, 5000);
-    listCha.push(&player);
-    listCha.push(&goodCop);
-    listCha.push(&badCop);
+    //listCha.push(&player);
+    //listCha.push(&goodCop);
+    //listCha.push(&badCop);
     //listCha.push(&coop);
 }
 
 void Game::endGame()
 {
-    listCha.clear();
+    //listCha.clear();
     matrices.reset();
 }
 

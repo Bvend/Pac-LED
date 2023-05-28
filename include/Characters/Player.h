@@ -9,14 +9,18 @@
 class Player : public Character {
 private:
     Joystick joystick;
+    char prevMovementDirection;
+    bool alive;
 
 public:
     Player();
     ~Player();
 
     void initialize();
-
-    void move();
+    char getPrevMovementDirection();
+    void setPrevMovementDirection(char prevMovementDirection);
+    bool getAlive();
+    void setAlive(bool alive);
+    void updateMovementDirection();
     void update();
-    void handleCollision(int idCol);
 };

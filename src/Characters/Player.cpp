@@ -2,11 +2,13 @@
 #include "Game.h"
 
 Player::Player():
-joystick(VRX, VRY)
+joystick(VRX, VRY),
+prevMovementDirection('0'),
+alive(true)
 {
   id = PLAYER;
-  movCooldown = 250;
-  posx = 0; posy = 0;
+  movCooldown = 350;
+  posy = 4; posx = 20;
 }
 
 Player::~Player()
@@ -15,17 +17,39 @@ Player::~Player()
 
 void Player::initialize()
 {
-  collided = false;
+  moved = false;
   movementDirection = '0';
-  posx = 0; posy = 0;
+  prevMovementDirection = '0';
+  posy = 4;
+  posx = 20;
+  alive = true;
 }
 
-void Player::move()
+char Player::getPrevMovementDirection()
+{
+  return prevMovementDirection;
+}
+
+void Player::setPrevMovementDirection(char prevMovementDirection)
+{
+  this->prevMovementDirection = prevMovementDirection;
+}
+
+bool Player::getAlive()
+{
+  return alive;
+}
+
+void Player::setAlive(bool alive)
+{
+  this->alive = alive;
+}
+
+void Player::updateMovementDirection()
 {   
   char dir = joystick.getInput();
 
-  //if (dir == '0') dir = movementDirection;
-  /**/
+  /*
   if (dir == 'w') {
     posy = (posy - 2 + 16) % 16;
   } else if (dir == 's') {
@@ -35,44 +59,17 @@ void Player::move()
   } else if (dir == 'd') {
     posx = (posx - 2 + 32) % 32;
   }
+  */
 
-  movementDirection = dir;
+  if (dir != '0') movementDirection = dir;
 }
 
 void Player::update()
 {
+  updateMovementDirection();
   unsigned long totalTime = Game::getTotalTime();
   if (totalTime - lastCooldown > movCooldown) {
-    collided = false;
+    moved = false;
     lastCooldown = totalTime;
-    move();
-  }
-}
-
-void Player::handleCollision(int idCol)
-{
-  if (idCol == WALL) {
-    collided = true;
-    switch(movementDirection) {
-      case 'w':
-          posy = (posy + 2) % 16;
-          break;
-      case 's':
-          posy = (posy - 2 + 16) % 16;
-          break;
-      case 'a':
-          posx = (posx - 2 + 32) % 32;
-          break;
-      case 'd':
-          posx = (posx + 2) % 32;
-          break;
-    }
-    movementDirection = '0';
-  }
-  if (idCol == GHOST) {
-
-  }
-  if (idCol == CHERRY) {
-
   }
 }
