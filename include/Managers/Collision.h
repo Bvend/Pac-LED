@@ -1,17 +1,17 @@
 #pragma once
 
-#include "Walls.h"
+#include "Scenery.h"
 #include "Characters/Ghost.h"
+#include "List/List.h"
 
 class Collision {
 private:
     Player* pPlayer;
-    Ghost* pGhost1;
-    Ghost* pGhost2;
+    List<Character>* pGhostList;
 
 public:
     Collision();
-    Collision(Player* pPlayer, Ghost* pGhost1, Ghost* pGhost2);
+    Collision(Player* pPlayer, List<Character>* pGhostList);
     ~Collision();
 
     void checkCollisions();

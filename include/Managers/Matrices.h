@@ -4,7 +4,8 @@
 
 #include "Characters/Player.h"
 #include "Characters/Ghost.h"
-#include "Walls.h"
+#include "Scenery.h"
+#include "List/List.h"
 
 class Matrices {
 private:
@@ -12,15 +13,13 @@ private:
     int clock;
     int store;
     int bitOrder;
-    int picGreen[2][8], picRed[2][8], valx[16];
-    //List<Character>* pListCha;
+    char picGreen[2][8], picRed[2][8], valx[16];
     Player* pPlayer;
-    Ghost* pGhost1;
-    Ghost* pGhost2;
+    List<Character>* pGhostList;
 
 public:
     Matrices() {}
-    Matrices(int data, int clock, int store, Player* pPlayer, Ghost* pGhost1, Ghost* pGhost2, int bitOrder = LSBFIRST);
+    Matrices(int data, int clock, int store, Player* pPlayer, List<Character>* pGhostList, int bitOrder = LSBFIRST);
     ~Matrices();
 
     void reset();
@@ -29,9 +28,9 @@ public:
 
     void retainInfo();
 
-    void updatePic(int posy, int posx, int id);
-
     void updateMatrices();
+
+    void transtitionAnimation(int win, int rows);
 
     void draw();
 };

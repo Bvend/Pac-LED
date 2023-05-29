@@ -3,16 +3,16 @@
 
 template <class ELEM> class Element {
 private:
-    Element <ELEM>* pProx;
+    Element <ELEM>* pNext;
     ELEM* item;
 
 public:
     Element();
     ~Element();
 
-    void setProx(Element<ELEM>* prox) { this->pProx = prox; }
+    void setNext(Element<ELEM>* pnext) { this->pNext = pnext; }
     void setItem(ELEM* it) { this->item = it; }
-    Element<ELEM>* getProx() { return pProx; }
+    Element<ELEM>* getNext() { return pNext; }
     ELEM* getItem () { return item; }
 
     void deleteItem() { if (item) delete item; }
@@ -21,12 +21,12 @@ public:
 template<class ELEM>
 inline Element<ELEM>::Element()
 {
-    pProx = NULL;
+    pNext = NULL;
     item = NULL;
 }
 template<class ELEM>
 inline Element<ELEM>::~Element()
 {
-    pProx = NULL;
+    pNext = NULL;
     item = NULL;
 }

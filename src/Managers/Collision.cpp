@@ -1,15 +1,13 @@
 #include "Managers/Collision.h"
-#include <Arduino.h>
 
 Collision::Collision()
 { 
     pPlayer = NULL;
 }
 
-Collision::Collision(Player* pPlayer, Ghost* pGhost1, Ghost* pGhost2):
+Collision::Collision(Player* pPlayer, List<Character>* pGhostList):
 pPlayer(pPlayer),
-pGhost1(pGhost1),
-pGhost2(pGhost2)
+pGhostList(pGhostList)
 {
 }
 
@@ -23,22 +21,17 @@ void Collision::checkCollisions()
         int posy = pPlayer->getPositionY(), posx = pPlayer->getPositionX();
         int dir = pPlayer->getMovementDirection();
         int prevDir = pPlayer->getPrevMovementDirection();
-        if (!((dir == 'w' && prevDir == 's') ||
-              (dir == 's' && prevDir == 'w') ||
-              (dir == 'a' && prevDir == 'd') ||
-              (dir == 'd' && prevDir == 'a')) && 
-              dir != '0') {
+        if (dir != '0') {
             playerWallCollision(posy, posx, dir);
         }
 
         if (!pPlayer->getMoved()) {
             playerWallCollision(posy, posx, prevDir);
-        }
-
-        if (!pPlayer->getMoved()) {
-            pPlayer->setPrevMovementDirection('0');
-            pPlayer->setMovementDirection('0');
-            pPlayer->setMoved(true);
+            if (!pPlayer->getMoved()) {
+                pPlayer->setPrevMovementDirection('0');
+                pPlayer->setMovementDirection('0');
+                pPlayer->setMoved(true);
+            }
         }
     }
 
@@ -71,8 +64,8 @@ void Collision::playerWallCollision(int posy, int posx, int movementDirection)
         evenPosx = (evenPosx - 2 + 32) % 32;
         break;
     }
-    if (!Walls::checkWall(oddPosy,oddPosx) &&
-        !Walls::checkWall(evenPosy,evenPosx)) { 
+    if (!Scenery::checkWall(oddPosy,oddPosx) &&
+        !Scenery::checkWall(evenPosy,evenPosx)) { 
         pPlayer->setPosition(evenPosy, evenPosx);
         pPlayer->setPrevMovementDirection(movementDirection);
         pPlayer->setMoved(true);
@@ -82,14 +75,18 @@ void Collision::playerWallCollision(int posy, int posx, int movementDirection)
 void Collision::playerCherryCollision()
 {
     int posy = pPlayer->getPositionY(), posx = pPlayer->getPositionX();
-    if (Walls::checkCherry(posy, posx)) Walls::eatCherry(posy, posx);
+    if (Scenery::checkCherry(posy, posx)) Scenery::eatCherry(posy, posx);
 }
 
 void Collision::playerGhostCollision()
 {
     int posy = pPlayer->getPositionY(), posx = pPlayer->getPositionX();
-    if ((pGhost1->getPositionY() == posy && pGhost1->getPositionX() == posx) ||
-        (pGhost2->getPositionY() == posy && pGhost2->getPositionX() == posx)) {
+    Element<Character> *pElemGhost = pGhostList->getFirst();
+    for (int i = 0; i < pGhostList->getAmount() && pPlayer->getAlive(); i++)
+    {
+        if (pElemGhost->getItem()->getPositionY() == posy &&
+            pElemGhost->getItem()->getPositionX() == posx)
             pPlayer->setAlive(false);
+        pElemGhost = pElemGhost->getNext();
     }
 }

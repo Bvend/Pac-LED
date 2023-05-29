@@ -48,19 +48,6 @@ void Player::setAlive(bool alive)
 void Player::updateMovementDirection()
 {   
   char dir = joystick.getInput();
-
-  /*
-  if (dir == 'w') {
-    posy = (posy - 2 + 16) % 16;
-  } else if (dir == 's') {
-    posy = (posy + 2) % 16;
-  } else if (dir == 'a') {
-    posx = (posx + 2) % 32;
-  } else if (dir == 'd') {
-    posx = (posx - 2 + 32) % 32;
-  }
-  */
-
   if (dir != '0') movementDirection = dir;
 }
 

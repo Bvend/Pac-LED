@@ -1,6 +1,5 @@
 #include "Characters/Ghost.h"
 #include "Game.h"
-#include "Walls.h"
 
 Player* Ghost::pPlayer = NULL;
 
@@ -32,7 +31,7 @@ void Ghost::initialize(int posy, int posx, unsigned long cooldown, unsigned long
     this->posy = posy;
     this->posx = posx;
     movCooldown = cooldown;
-    movementDirection = '0';
+    movementDirection = 's';
     targety = posy;
     targetx = posx; 
     distFromTarget = 0;
@@ -82,7 +81,7 @@ void Ghost::move()
         else if (it == 'a' && movementDirection != 'd') { oddPosx = (posx + 1) % 32; evenPosx = (posx + 2) % 32; }
         else if (it == 'd' && movementDirection != 'a') { oddPosx = (posx - 1 + 32) % 32; evenPosx = (posx - 2 + 32) % 32; }
 
-        if (!Walls::checkWall(oddPosy, oddPosx) && !Walls::checkWall(evenPosy, evenPosx)
+        if (!Scenery::checkWall(oddPosy, oddPosx) && !Scenery::checkWall(evenPosy, evenPosx)
             && !(evenPosx == posx && evenPosy == posy)) {
             int dist = calculateDistance(evenPosy, evenPosx, targety, targetx);
             if (dist < minDist) {
@@ -92,17 +91,7 @@ void Ghost::move()
             }
         }
     }
-    //int evenPosx = posx, oddPosx = posx, evenPosy = posy, oddPosy = posy;
-
-    //char it = movArray[random(0, 4)];
-
-    //if (it == 'w') { oddPosy = (posy - 1 + 16) % 16; evenPosy = (posy - 2 + 16) % 16; }
-    //else if (it == 's') { oddPosy = (posy + 1) % 16; evenPosy = (posy + 2) % 16; }
-    //else if (it == 'a') { oddPosx = (posx + 1) % 32; evenPosx = (posx + 2) % 32; }
-    //else if (it == 'd' ) { oddPosx = (posx - 1 + 32) % 32; evenPosx = (posx - 2 + 32) % 32; }
-
-    //if (!Walls::checkWall(oddPosy, oddPosx) && !Walls::checkWall(evenPosy, evenPosx)) { futurePosy = evenPosy; futurePosx = evenPosx; }
-
+    
     if (futurePosx == posx && futurePosy == posy) movementDirection = '0';
     else {
         distFromTarget = minDist;

@@ -13,14 +13,14 @@ public:
 
     int getAmount() { return amount; }
 
-    Element<LIST>* getPrimeiro() { return pFirst; }
+    Element<LIST>* getFirst() { return pFirst; }
 
     LIST* getItem(int position){
         Element<LIST>* temp = pFirst;
         if (position == 0)
             return temp->getItem();
         for (int i=0; i<position; i++){
-            temp = temp->getProx();
+            temp = temp->getNext();
         }
         return temp->getItem();
     }
@@ -34,7 +34,7 @@ public:
         else {
          Element<LIST>* temp = new Element<LIST>;
          temp->setItem(it);
-         pLast->setProx(temp);
+         pLast->setNext(temp);
          pLast = temp;
         }
         amount++;
@@ -42,21 +42,21 @@ public:
 
     void pop(LIST* it){
         Element<LIST>* temp = pFirst;
-        Element<LIST>* tempAnt = NULL;
+        Element<LIST>* tempPrev = NULL;
 
         while(temp->getItem()!= it){
-            tempAnt = temp;
-            temp = temp->getProx();
+            tempPrev = temp;
+            temp = temp->getNext();
         }
         if (temp == pFirst){
-            pFirst = temp->getProx();
+            pFirst = temp->getNext();
         }
         else if (temp == pLast){
-            tempAnt->setProx(NULL);
-            pLast = tempAnt;
+            tempPrev->setNext(NULL);
+            pLast = tempPrev;
         }
         else {
-            tempAnt->setProx(temp->getProx());
+            tempPrev->setNext(temp->getNext());
         }
         delete temp;
         amount--;
@@ -68,7 +68,7 @@ public:
 			int i = 0;
 
 			while (temp != NULL && i < amount){
-					pFirst = (temp->getProx());
+					pFirst = (temp->getNext());
 					delete temp;
 					temp = pFirst;
 					i++;
@@ -85,7 +85,7 @@ public:
 			int i = 0;
 
 			while (temp != NULL && i < amount){
-					pFirst = (temp->getProx());
+					pFirst = (temp->getNext());
                     temp->deleteItem();
 					delete temp;
 					temp = pFirst;

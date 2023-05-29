@@ -1,11 +1,11 @@
 #pragma once
 #include <stdio.h>
-#include "Managers/Matrices.h"
-#include "Managers/Collision.h"
+#include "Scenery.h"
 #include "Button.h"
 #include "Characters/Player.h"
 #include "Characters/Ghost.h"
-#include "Walls.h"
+#include "Managers/Matrices.h"
+#include "Managers/Collision.h"
 #include "List/List.h"
 
 #define DATA 8
@@ -19,11 +19,11 @@ private:
     Player player;
     Ghost goodCop;
     Ghost badCop;
-    //Ghost coop;
+    Ghost vinDiesel;
+    List<Character> ghostList;
     Matrices matrices;
     Collision collider;
-    // ttt[16][32];
-
+    char level;
     static unsigned long totalGameTime;
     
 public:
@@ -40,7 +40,7 @@ public:
 
     void updateCha();
 
-    void updateMatrices();
-
     static unsigned long getTotalTime();
+
+    static void updateTotalTime();
 };

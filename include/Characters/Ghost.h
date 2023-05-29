@@ -1,7 +1,7 @@
 #pragma once
 
 #include"Player.h"
-#include"Walls.h"
+#include"Scenery.h"
 
 class Ghost : public Character
 {
