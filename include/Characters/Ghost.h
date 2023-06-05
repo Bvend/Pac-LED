@@ -3,18 +3,17 @@
 #include"Player.h"
 #include"Scenery.h"
 
-class Ghost : public Character
-{
+class Ghost : public Character {
 private:
     static Player* pPlayer;
 
     unsigned long atackTime, scatterTime, lastModeChange;
     int currentMode;
 
-    int targety, targetx, distFromTarget;
+    int targety, targetx, distFromTarget, atackMod;
 
 public:
-    Ghost(int posy = 0, int posx = 0, unsigned long atackTime = 0, unsigned long scatterTime = 0);
+    Ghost(int atackMod, int posy = 0, int posx = 0, unsigned long atackTime = 0, unsigned long scatterTime = 0);
     ~Ghost();
 
     void initialize(int posy, int posx, unsigned long cooldown,

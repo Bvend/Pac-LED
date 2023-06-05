@@ -88,10 +88,10 @@ void Matrices::draw()
 {
     // Para pcb inverter 1 e 0
     for (int i = 0; i < 8; i++) {
-        shiftOut(data, clock, LSBFIRST, ~picGreen[0][i]);
-        shiftOut(data, clock, LSBFIRST, ~picRed[0][i]);
         shiftOut(data, clock, LSBFIRST, ~picGreen[1][i]);
         shiftOut(data, clock, LSBFIRST, ~picRed[1][i]);
+        shiftOut(data, clock, LSBFIRST, ~picGreen[0][i]);
+        shiftOut(data, clock, LSBFIRST, ~picRed[0][i]);
         shiftOut(data, clock, LSBFIRST, 128 >> i);
         retainInfo();
     }

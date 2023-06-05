@@ -15,9 +15,9 @@ void Game::updateTotalTime()
 Game::Game():
 button(BUTTON),
 player(),
-goodCop(),
-badCop(),
-vinDiesel(),
+goodCop(0),
+badCop(1),
+vinDiesel(-1),
 ghostList(),
 matrices(DATA, CLOCK, STORE, &player, &ghostList),
 collider(&player, &ghostList),
@@ -38,8 +38,8 @@ void Game::gameLoop()
         {
             delay(500);
             matrices.transtitionAnimation(true, 8);
-            initializeGame();
             level = 0;
+            initializeGame();
             while (button.getStart()) { 
                 runGame();
                 button.update();
@@ -70,11 +70,11 @@ void Game::initializeGame()
     ghostList.push(&goodCop);
     ghostList.push(&badCop);
 
-    goodCop.initialize(6, 8, 800 - 20 * level, 5000 + 500 * level, 10000 - 750 * level);
-    badCop.initialize(8, 8, 700 - 30 * level, 6000 + 500 * level, 9000 - 1000 * level);
+    goodCop.initialize(6, 8, 800 - 50 * level, 10000 + 1000 * level, 10000 - 1000 * level);
+    badCop.initialize(8, 8, 700 - 50 * level, 9000 + 1000 * level, 11000 - 1000 * level);
 
     if (level >= 6) {
-        vinDiesel.initialize(4, 8, 600 - 100 * (level - 6), 8000 + 2000 * (level - 6), 6000 - 2000 * (level - 6));
+        vinDiesel.initialize(4, 8, 450 - 50 * (level - 6), 14000 + 1000 * (level - 6), 6000 - 1000 * (level - 6));
         ghostList.push(&vinDiesel);
     }
 

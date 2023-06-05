@@ -5,14 +5,15 @@ Player* Ghost::pPlayer = NULL;
 
 void Ghost::setPlayer(Player* player) { pPlayer = player; }
 
-Ghost::Ghost(int posy, int posx, unsigned long atackTime, unsigned long scatterTime):
+Ghost::Ghost(int atackMod, int posy, int posx, unsigned long atackTime, unsigned long scatterTime):
 atackTime(atackTime),
 scatterTime(scatterTime),
 lastModeChange(0),
 currentMode(0),
 targety(0),
 targetx(0),
-distFromTarget(0)
+distFromTarget(0),
+atackMod(atackMod)
 {
     id = GHOST;
     moved = true;
@@ -61,6 +62,7 @@ void Ghost::updateMode(unsigned int totalTime)
         targety = random(0, 15); targetx = random(0, 30);
         lastModeChange = totalTime;
         currentMode = 0;
+        scatterTime = max(2000, scatterTime-1000);
     }
 }
 
@@ -91,7 +93,7 @@ void Ghost::move()
             }
         }
     }
-    
+
     if (futurePosx == posx && futurePosy == posy) movementDirection = '0';
     else {
         distFromTarget = minDist;
@@ -113,6 +115,11 @@ void Ghost::update()
         }
         else {
             targety = pPlayer->getPositionY(); targetx = pPlayer->getPositionX();
+            int dir = pPlayer->getPrevMovementDirection();
+            if (dir == 'w') targety = targety - atackMod;
+            else if (dir == 's') targety = targety + atackMod;
+            else if (dir == 'a') targetx = targetx + atackMod;
+            else if (dir == 'd') targetx = targetx - atackMod;
         }
         move();
     }
